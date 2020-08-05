@@ -1,4 +1,29 @@
 <?php include "header.php"; ?>
+
+<?php  
+  
+  if (isset($_POST['save'])) {
+     $catname = mysqli_real_escape_string($conn,$_POST['cat']);
+  
+     $sql = "SELECT category_name FROM category WHERE category_name = {$catname}";
+     $result = mysqli_query($conn,$sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      echo "<p style='color:red;text-align:center;margin:10px 0;'>category name da ton tai</p>";
+    } else {
+        $sql1 = "INSERT INTO category(category_name) VALUES('$catname')";
+        if(mysqli_query($conn,$sql1))
+        {
+          header("location:{$hostname}/admin/category.php"); 
+          exit();
+        }
+       
+    }
+  }
+
+?>
+
+
   <div id="admin-content">
       <div class="container">
           <div class="row">

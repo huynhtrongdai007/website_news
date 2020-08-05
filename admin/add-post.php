@@ -1,4 +1,15 @@
 <?php include "header.php"; ?>
+<?php
+
+ include 'config.php';
+ if ($_SESSION['user_role']==0) {
+     header("location:{$hostname}/admin/post.php");
+     exit();
+ }
+
+
+ ?>
+
   <div id="admin-content">
       <div class="container">
          <div class="row">
@@ -19,7 +30,7 @@
                       <div class="form-group">
                           <label for="exampleInputPassword1">Category</label>
                           <select name="category" class="form-control">
-                              <option value="" selected> Select Category</option>
+                              <option  disabled > Select Category</option>
                           </select>
                       </div>
                       <div class="form-group">

@@ -1,4 +1,11 @@
 <?php include "header.php"; ?>
+<?php
+  include 'config.php';
+ if ($_SESSION['user_role']==0) {
+     header("location:{$hostname}/admin/post.php");
+     exit();
+ }
+ ?>
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -19,45 +26,79 @@
                           <th>Delete</th>
                       </thead>
                       <tbody>
+                        <?php 
+                        $limit_page = 3;
+                        if (isset($_GET['page'])) {
+                         $page = $_GET['page'];
+                        } else {
+                          $page = 1;
+                        }
+                        
+                        $offset = ($page  - 1) * $limit_page;
+
+
+                          $sql = "SELECT * FROM user ORDER BY user_id DESC LIMIT {$offset},{$limit_page}";
+                          $result = mysqli_query($conn,$sql) or die("Query Failed");
+                          if(mysqli_num_rows($result) > 0) {
+
+                              while ($items = mysqli_fetch_assoc($result)) {
+                         
+                         ?>
                           <tr>
-                              <td class='id'>1</td>
-                              <td>Ram Sharma</td>
-                              <td>ram</td>
-                              <td>admin</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
+                              <td class='id'><?php echo $items['user_id']; ?></td>
+                              <td><?php echo $items['first_name'] ." ". $items['last_name'] ?></td>
+                              <td><?php echo $items['username'] ?></td>
+                              <td><?php 
+                                if ($items['role']==1) {
+                                  echo"Admin";
+                                } else {
+                                  echo "Normal";
+                                }
+                              ?></td>
+                              <td class='edit'><a href='update-user.php?id=<?php echo $items['user_id'] ?>'><i class='fa fa-edit'></i></a></td>
+                              <td class='delete'><a href='delete-user.php?id=<?php echo $items['user_id'] ?>'><i class='fa fa-trash-o'></i></a></td>
                           </tr>
-                          <tr>
-                              <td class='id'>2</td>
-                              <td>Shyam Kumar</td>
-                              <td>shyam</td>
-                              <td>normal</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class='id'>3</td>
-                              <td>Ramesh Kumar</td>
-                              <td>ramesh</td>
-                              <td>admin</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class='id'>4</td>
-                              <td>Satish Sharma</td>
-                              <td>satish</td>
-                              <td>admin</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
+                          <?php 
+                              }
+                            }
+                           ?>
                       </tbody>
                   </table>
+                  <?php 
+                    $sql1 = "SELECT * FROM user";
+                    $result1 = mysqli_query($conn,$sql1) or die ("Query Failed");
+
+                    if(mysqli_num_rows($result1) > 0){
+                      $total_records = mysqli_num_rows($result1);
+                      $limit = 3;
+                      $total_pages = ceil($total_records / $limit); 
+                    }
+                   
+                  ?>
+                   
                   <ul class='pagination admin-pagination'>
-                      <li class="active"><a>1</a></li>
-                      <li><a>2</a></li>
-                      <li><a>3</a></li>
+                    <?php if($page > 1){ ?>
+                   <li><a href="users.php?page=<?php echo ($page-1); ?>">Prev</a></li>
+                   <?php } ?> 
+                   <?php  for ($i=1; $i <= $total_pages; $i++) {
+                      if ($i == $page) {
+                        $active = "active";
+                      } else {
+                        $active="";
+                      }
+
+                     ?>
+                      <li class="<?php echo $active; ?>">
+                        <a  href="users.php?page=<?php echo $i; ?>"><?php echo $i;?></a>
+                      </li>
+                    <?php
+                         } 
+                      if($total_pages >$page) {
+                    ?>
+                      <li><a href="users.php?page=<?php echo ($page + 1); ?>">Next</a></li>
+                      <?php } ?> 
                   </ul>
+                  
               </div>
           </div>
       </div>
