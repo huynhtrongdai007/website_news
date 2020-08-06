@@ -1,6 +1,6 @@
+
 <?php include "header.php"; ?>
 <?php
-  include 'config.php';
  if ($_SESSION['user_role']==0) {
      header("location:{$hostname}/admin/post.php");
      exit();
