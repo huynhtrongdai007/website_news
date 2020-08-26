@@ -64,40 +64,40 @@
                            ?>
                       </tbody>
                   </table>
-                  <?php 
-                    $sql1 = "SELECT * FROM user";
-                    $result1 = mysqli_query($conn,$sql1) or die ("Query Failed");
+                    <?php 
+                      $sql1 = "SELECT * FROM user";
+                      $result1 = mysqli_query($conn,$sql1) or die ("Query Failed");
 
-                    if(mysqli_num_rows($result1) > 0){
-                      $total_records = mysqli_num_rows($result1);
-                      $limit = 3;
-                      $total_pages = ceil($total_records / $limit); 
-                    }
-                   
-                  ?>
-                   
-                  <ul class='pagination admin-pagination'>
-                    <?php if($page > 1){ ?>
-                   <li><a href="users.php?page=<?php echo ($page-1); ?>">Prev</a></li>
-                   <?php } ?> 
-                   <?php  for ($i=1; $i <= $total_pages; $i++) {
-                      if ($i == $page) {
-                        $active = "active";
-                      } else {
-                        $active="";
+                      if(mysqli_num_rows($result1) > 0){
+                        $total_records = mysqli_num_rows($result1);
+                        $limit = 3;
+                        $total_pages = ceil($total_records / $limit); 
                       }
-
-                     ?>
-                      <li class="<?php echo $active; ?>">
-                        <a  href="users.php?page=<?php echo $i; ?>"><?php echo $i;?></a>
-                      </li>
-                    <?php
-                         } 
-                      if($total_pages >$page) {
+                     
                     ?>
-                      <li><a href="users.php?page=<?php echo ($page + 1); ?>">Next</a></li>
-                      <?php } ?> 
-                  </ul>
+                     
+                    <ul class='pagination admin-pagination'>
+                      <?php if($page > 1){ ?>
+                     <li><a href="users.php?page=<?php echo ($page-1); ?>">Prev</a></li>
+                     <?php } ?> 
+                     <?php  for ($i=1; $i <= $total_pages; $i++) {
+                        if ($i == $page) {
+                          $active = "active";
+                        } else {
+                          $active="";
+                        }
+
+                       ?>
+                        <li class="<?php echo $active; ?>">
+                          <a  href="users.php?page=<?php echo $i; ?>"><?php echo $i;?></a>
+                        </li>
+                      <?php
+                           } 
+                        if($total_pages >$page) {
+                      ?>
+                        <li><a href="users.php?page=<?php echo ($page + 1); ?>">Next</a></li>
+                        <?php } ?> 
+                    </ul>
                   
               </div>
           </div>

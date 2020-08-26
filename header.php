@@ -34,12 +34,40 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <ul class='menu'>
-                    <li><a href='category.php'>Business</a></li>
-                    <li><a href='category.php'>Entertainment</a></li>
-                    <li><a href='category.php'>Sports</a></li>
-                    <li><a href='category.php'>Politics</a></li>
-                </ul>
+                <?php require 'config.php';
+                if (isset($_GET['cid'])) {
+                    $cat_id = $_GET['cid'];
+                  }  
+             
+                ?>
+               
+                    <ul class='menu'>
+                        <li><a href="<?php echo $hostname; ?>">Home</a></li>
+                         <?php 
+                            $sql = "SELECT * FROM category WHERE post > 0";
+                            $result = mysqli_query($conn,$sql);
+                            if (mysqli_num_rows($result)) {
+                                $active ="";
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                if (isset($_GET['cid'])) {
+                                   if ($row['category_id'] == $cat_id) {
+                                     $active = "active";
+                                    } else {
+                                        $active = "";
+                                    }
+                                }
+                                
+                          ?>
+                            <li><a class="<?php echo($active); ?>" href='category.php?cid=<?php echo $row['category_id']; ?>'><?php echo $row['category_name']; ?></a></li>
+                       <?php 
+                          }
+                            } else {
+                                echo "<h4>khong co du lieu</h4>";
+                            }  
+                            ?> 
+                    </ul>
+              
+                 ?>
             </div>
         </div>
     </div>

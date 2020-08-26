@@ -1,6 +1,6 @@
 <?php include "header.php"; ?>
 <?php session_start(); ?>
-<?php echo  $_SESSION['user_id']; ?>
+<?php  $_SESSION['user_id']; ?>
   <div id="admin-content">
       <div class="container">
          <div class="row">
