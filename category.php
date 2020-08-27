@@ -6,6 +6,10 @@
                 <!-- post-container -->
                 <div class="post-container">
                     <?php 
+                     require 'config.php';
+                    if (isset($_GET['cid'])) {
+                        $cat_id = $_GET['cid'];
+                    }
                           $sql1 = "SELECT category_name FROM category where category_id = {$cat_id} ";
                               $result1 = mysqli_query($conn,$sql1) or die ("Query Failed");
                               $row1  = mysqli_fetch_assoc($result1);
@@ -13,10 +17,7 @@
                  <h2 class="page-heading"><?php echo $row1['category_name']; ?></h2>
 
              <?php 
-                    require 'config.php';
-                    if (isset($_GET['cid'])) {
-                        $cat_id = $_GET['cid'];
-                    }
+                   
                    
                          $limit_page = 3;
                         if (isset($_GET['page'])) {
@@ -50,11 +51,11 @@
                                     <div class="post-information">
                                         <span>
                                             <i class="fa fa-tags" aria-hidden="true"></i>
-                                            <a href='category.php'>PHP</a>
+                                            <a href='category.php'><?php echo $row['category_name']; ?></a>
                                         </span>
                                         <span>
                                             <i class="fa fa-user" aria-hidden="true"></i>
-                                            <a href='author.php'>Admin</a>
+                                            <a href='author.php?aid=<?php echo $row['author']; ?>'><?php echo $row['username']; ?></a>
                                         </span>
                                         <span>
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
