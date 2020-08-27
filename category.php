@@ -13,7 +13,7 @@
                           $sql1 = "SELECT category_name FROM category where category_id = {$cat_id} ";
                               $result1 = mysqli_query($conn,$sql1) or die ("Query Failed");
                               $row1  = mysqli_fetch_assoc($result1);
-                     ?>
+                     ?>         
                  <h2 class="page-heading"><?php echo $row1['category_name']; ?></h2>
 
              <?php 
