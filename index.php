@@ -7,7 +7,7 @@
                     <div class="post-container">  
 
                           <?php 
-                    require 'config.php';
+                       require 'config.php';
                          $limit_page = 3;
                         if (isset($_GET['page'])) {
                          $page = $_GET['page'];
@@ -51,7 +51,7 @@
                                         <p class="description">
                                              <?php echo substr($row['description'],0,130) . "..."; ?>
                                         </p>
-                                         <a class='read-more pull-right' href='single.php?id=<?php echo $row['post_id']; ?>'>read more</a>
+                                         <a class='read-more pull-right' href='single.php?cid=<?php echo $row['post_id']; ?>'>read more</a>
                                     </div>
                                 </div>
                             </div>

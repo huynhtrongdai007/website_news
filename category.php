@@ -65,7 +65,7 @@
                                     <p class="description">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua....
                                     </p>
-                                    <a class='read-more pull-right' href='single.php'>read more</a>
+                                    <a class='read-more pull-right' href='single.php?cid=<?php echo $row['post_id'] ?>'>read more</a>
                                 </div>
                             </div>
                         </div>

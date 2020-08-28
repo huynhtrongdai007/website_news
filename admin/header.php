@@ -26,7 +26,19 @@
                 <div class="row">
                     <!-- LOGO -->
                     <div class="col-md-2">
-                        <a href="post.php"><img class="logo" src="images/news.jpg"></a>
+                        <?php 
+                             include 'config.php';
+                            $sql = "SELECT * FROM settings";
+                            $result = mysqli_query($conn,$sql);
+                            if (mysqli_num_rows($result)) {
+                              while ($row = mysqli_fetch_assoc($result)) {            
+                              ?>
+                        
+                        <a href="post.php"><img class="logo" src="images/<?php echo $row['logo'] ?>"></a>
+                        <?php
+                            } 
+                          }
+                         ?>
                     </div>
                     <!-- /LOGO -->
                       <!-- LOGO-Out -->
@@ -54,7 +66,9 @@
                             <li>
                                 <a href="users.php">Users</a>
                             </li>
-                        
+                            <li>
+                                <a href="setting.php">Settings</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
